@@ -14,6 +14,7 @@ public class Principal {
 
 	public static String cifradoCesar(String mensaje, int clave) {
 		StringBuilder sb = new StringBuilder();
+		boolean encontrado=false;
 		String mensajeCifrado="";
 
 		String abecedario="abcdefghijklmnñopqrstuvwxyz";
@@ -21,14 +22,23 @@ public class Principal {
 			for(int j=0; j<abecedario.length();j++) {
 				if(mensaje.charAt(i)==abecedario.charAt(j)) {
 					int nuevaletra=j+clave;
-					if(nuevaletra>=abecedario.length()) {
+					encontrado=true;
+					if(nuevaletra>=abecedario.length()) {	
 						nuevaletra=nuevaletra-abecedario.length();
 					}
 					sb.append(abecedario.charAt(nuevaletra));
 				}
 			}
-			mensajeCifrado=sb.toString();
+			if(!encontrado) {
+				if(mensaje.charAt(i)==' ') {
+					sb.append(' ');
+				}else {
+					sb.append(mensaje.charAt(i));
+				}
+			}
+			encontrado=false;		
 		}
+		mensajeCifrado=sb.toString();
 		return mensajeCifrado;
 	}
 }
